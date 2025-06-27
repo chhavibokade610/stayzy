@@ -1,0 +1,165 @@
+<% layout("/layouts/boilerplate") %>
+<body>
+  <div class="row">
+    <div class="col-8 offset-2 mt-3">
+      <h3><%= listing.title %></h3>
+    </div>
+
+    <div class="card col-8 offset-2 show-card listing-card">
+      <img
+        src="<%= listing.image.url %>"
+        class="card-img-top show-img"
+        alt="listing_image"
+      />
+      <div class="card-body">
+        <p class="text-muted mb-2">
+          Owned by
+          <strong class="text-danger"
+            ><i><%= listing.owner.username %></i></strong
+          >
+        </p>
+
+        <p class="mb-2"><%= listing.description %></p>
+
+        <p class="fw-bold mb-2">
+          &#8377;<%= listing.price.toLocaleString("en-IN") %>
+        </p>
+
+        <p class="mb-1">
+          <i class="bi bi-geo-alt-fill me-1"></i><%= listing.location %>, <%=
+          listing.country %>
+        </p>
+      </div>
+    </div>
+
+    <div
+      class="col-8 offset-2 <%= (currUser && currUser._id.equals(listing.owner._id)) ? 'mt-3 mb-3' : '' %>"
+    >
+      <% if (currUser && currUser._id.equals(listing.owner._id)) { %>
+      <div class="d-flex gap-3">
+        <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark add-btn"
+          >Edit</a
+        >
+        <form
+          method="POST"
+          action="/listings/<%= listing._id %>?_method=DELETE"
+        >
+          <button class="btn btn-dark">Delete</button>
+        </form>
+      </div>
+      <% } %> <% if(currUser) { %>
+      <hr class="my-4" />
+      <h4>Leave a Review</h4>
+      <form
+        method="POST"
+        action="/listings/<%= listing._id %>/reviews"
+        class="mt-4 col-10 needs-validation"
+        novalidate
+      >
+        <label class="form-label d-block mb-1">
+          Rating:
+          <span id="rangeValue" class="fw-semibold text-warning">0</span>/5
+        </label>
+
+        <fieldset class="starability-slot">
+          <input type="radio" name="review[rating]" value="1" checked />
+          <input
+            type="radio"
+            id="first-rate1"
+            name="review[rating]"
+            value="1"
+          />
+          <label for="first-rate1" title="Terrible">1 star</label>
+
+          <input
+            type="radio"
+            id="first-rate2"
+            name="review[rating]"
+            value="2"
+          />
+          <label for="first-rate2" title="Not good">2 stars</label>
+
+          <input
+            type="radio"
+            id="first-rate3"
+            name="review[rating]"
+            value="3"
+          />
+          <label for="first-rate3" title="Average">3 stars</label>
+
+          <input
+            type="radio"
+            id="first-rate4"
+            name="review[rating]"
+            value="4"
+          />
+          <label for="first-rate4" title="Very good">4 stars</label>
+
+          <input
+            type="radio"
+            id="first-rate5"
+            name="review[rating]"
+            value="5"
+          />
+          <label for="first-rate5" title="Amazing">5 stars</label>
+        </fieldset>
+
+        <div>
+          <textarea
+            name="review[comment]"
+            rows="3"
+            class="form-control mb-2"
+            placeholder="Share your thoughts..."
+            required
+          ></textarea>
+          <div class="invalid-feedback">Please share your thoughts</div>
+        </div>
+
+        <button class="btn btn-outline-dark btn-sm mt-2">Post Review</button>
+      </form>
+      <% } %>
+
+      <hr class="my-4" />
+      <% if(listing.reviews.length > 0 ) {%>
+      <div class="row">
+        <p class="fw-bold">All Reviews</p>
+        <% for (review of listing.reviews) { %>
+        <div
+          class="card col-12 col-sm-6 col-lg-5 m-2 p-3 shadow-sm rounded bg-light"
+        >
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <strong><%= review.author.username%></strong>
+            <form
+              method="POST"
+              action="/listings/<%= listing._id%>/reviews/<%= review.id%>?_method=DELETE"
+            >
+              <button class="btn btn-outline-danger btn-sm">Delete</button>
+            </form>
+          </div>
+          <p class="mb-2"><%= review.comment %></p>
+          <div class="text-warning small">
+            <%= '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating) %>
+            <span class="text-muted ms-1">(<%= review.rating %>/5)</span>
+          </div>
+        </div>
+        <% } %>
+      </div>
+      <% } %>
+    </div>
+  </div>
+
+  <script>
+    const ratingRadios = document.querySelectorAll(
+      'input[name="review[rating]"]'
+    );
+    const rangeValue = document.getElementById("rangeValue");
+
+    ratingRadios.forEach((radio) => {
+      radio.addEventListener("change", () => {
+        rangeValue.textContent = radio.value;
+      });
+    });
+
+    rating.oninput = () => (rangeValue.textContent = rating.value);
+  </script>
+</body>

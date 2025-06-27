@@ -1,0 +1,127 @@
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+  <style>
+    .navbar-nav {
+      display: flex;
+      gap: 1rem;
+    }
+
+    /* Common link reset */
+    .nav-link {
+      text-decoration: none;
+    }
+
+    /* Left links with underline hover */
+    .navbar-nav .nav-link.plain-link {
+      color: #555;
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .navbar-nav .nav-link.plain-link:hover {
+      color: #fe424d;
+    }
+
+    .navbar-nav .nav-link.plain-link::after {
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: #fe424d;
+      transition: width 0.3s ease;
+    }
+
+    .navbar-nav .nav-link.plain-link:hover::after {
+      width: 100%;
+    }
+
+    /* Right side button-style links */
+    .navbar-nav .nav-link.btn-link {
+      color: #fe424d;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .navbar-nav .nav-link.btn-link:hover {
+      background-color: #fe424d;
+      color: white;
+    }
+
+    /* Push right side nav to the right */
+    .navbar-nav.ms-auto {
+      margin-left: auto;
+    }
+
+    .btn-search {
+      background-color: #fe424d;
+      color: white;
+      border-radius: 25px;
+      padding: 0 1rem 0 1rem;
+    }
+
+    .btn-search:hover {
+      background-color: #fe424d;
+      color: white;
+    }
+
+    .btn-search i{
+      display: inline;
+      margin-right: 5px;
+    }
+
+    .search-box{
+      border-radius: 25px;
+      padding: 0.5rem 3rem 0.5rem 3rem;
+    }
+  </style>
+
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/listings"
+      ><i class="fa-solid fa-compass"></i
+    ></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <!-- Left Side Links -->
+      <div class="navbar-nav">
+        <a class="nav-link plain-link" href="/listings">Explore</a>
+      </div>
+
+      <div class="navbar-nav ms-auto">
+        <form class="d-flex" role="search">
+          <input
+            class="form-control me-2 search-box"
+            type="search"
+            placeholder="Search destinations"
+          />
+          <button class="btn btn-search" type="submit">
+            <i class="fa-solid fa-magnifying-glass fa-spin"></i>Search
+          </button>
+        </form>
+      </div>
+
+      <!-- Right Side Links -->
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link plain-link" href="/listings/new">Airbnb your home</a>
+
+        <% if (!currUser) { %>
+        <a class="nav-link btn-link" href="/signup">Sign Up</a>
+        <a class="nav-link btn-link" href="/login">Log In</a>
+        <% } %> <% if (currUser) { %>
+        <a class="nav-link btn-link" href="/logout">Log Out</a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>
