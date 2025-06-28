@@ -1,0 +1,127 @@
+.icon {
+  color: #fe424d !important;
+}
+
+.search-form {
+  max-width: 500px;
+  min-width: 0;
+  width: 100%;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: nowrap;
+}
+
+.search-box {
+  border-radius: 25px;
+  padding: 0.5rem 1.5rem;
+  flex: 1;
+}
+
+.btn-search {
+  background-color: #fe424d;
+  color: white;
+  border-radius: 25px;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-search:hover {
+  background-color: #fe424d;
+  color: white;
+}
+
+.btn-search i {
+  margin-right: 5px;
+}
+
+.navbar-nav {
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  width: 100%;
+}
+
+.nav-link {
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-link.plain-link {
+  color: #555;
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.nav-link.plain-link:hover {
+  color: #fe424d;
+}
+
+.nav-link.plain-link::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #fe424d;
+  transition: width 0.3s ease;
+}
+
+.nav-link.plain-link:hover::after {
+  width: 100%;
+}
+
+.nav-link.btn-link {
+  color: #fe424d;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-link.btn-link:hover {
+  background-color: #fe424d;
+  color: white;
+}
+
+.collapse.navbar-collapse {
+  background-color: white;
+  z-index: 1050;
+  width: 100%;
+}
+
+/* Tablet sweet spot */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .search-form {
+    max-width: 400px;
+  }
+}
+
+/* Mobile layout */
+@media (max-width: 767.98px) {
+  .search-form {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .search-box,
+  .btn-search {
+    width: 100%;
+  }
+}
+
+/* Adjust the breakpoint switch */
+@media (max-width: 800px) {
+  .search-form.d-md-flex {
+    display: none !important;
+  }
+
+  .search-form.d-md-none {
+    display: flex !important;
+  }
+}
